@@ -37,6 +37,9 @@ public class ButtonEventHandler : MonoBehaviour
     }
 
     public void onViewPopupOpenClick(){
+        string prefName = viewPopup.name + "DefaultZ";
+        PlayerPrefs.SetInt(prefName,0);
+        PlayerPrefs.Save();
         viewPopup.SetActive(true);
     }
 

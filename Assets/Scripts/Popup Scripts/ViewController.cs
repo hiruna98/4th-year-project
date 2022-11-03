@@ -6,8 +6,6 @@ public class ViewController
 {
     
     private Quaternion defaultRotation;
-
-    public float RotationSpeed = 0.5f;
     
     private ViewController()
     {
