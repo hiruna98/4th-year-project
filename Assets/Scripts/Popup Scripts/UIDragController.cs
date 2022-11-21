@@ -10,6 +10,8 @@ public class UIDragController : MonoBehaviour
 
     private UIRotateController uIRotateController;
 
+    private bool rotationEnable = true;
+
     public void dragHandler(BaseEventData data){
         uIRotateController = UIRotateController.Instance;
         PointerEventData pointerData = (PointerEventData)data;
@@ -23,7 +25,14 @@ public class UIDragController : MonoBehaviour
         );
 
         transform.position = canvas.transform.TransformPoint(position.x,position.y,0);
-        Debug.Log(transform.position.x + " -------- " + transform.position.y);
-        uIRotateController.Rotate(transform);
+        //uIRotateController.Rotate(transform);
+    }
+
+    public void changeRotationEnable(){
+        if(rotationEnable){
+            rotationEnable = false;
+        }else{
+            rotationEnable = true;
+        }
     }
 }
