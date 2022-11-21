@@ -74,4 +74,9 @@ public class ButtonEventHandler : MonoBehaviour
     public void onInferiorClicked(){
         viewController.infRotation(obj);
     }
+
+    public void doExitApplication() {
+        Application.Quit();
+        Debug.Log("Game is exiting");
+    }
 }
