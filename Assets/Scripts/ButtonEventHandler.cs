@@ -79,4 +79,13 @@ public class ButtonEventHandler : MonoBehaviour
         Application.Quit();
         Debug.Log("Game is exiting");
     }
+
+    public void onViewPopupLockRotation(){
+        PlayerPrefs.SetInt("ViewRotationLock",1);
+    }
+
+    public void onViewPopupUnlockRotation(){
+        PlayerPrefs.SetInt("ViewRotationLock",0);
+    }
+
 }
