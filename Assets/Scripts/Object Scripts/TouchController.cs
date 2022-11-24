@@ -37,14 +37,7 @@ public class TouchController : MonoBehaviour
     
     private List<GameObject> allGameObjects = new List<GameObject>();
 
-    private float initialDist; //For zooming
-    private Vector3 initialScale;
-    private Vector3 initialPosition; //initial camera position
     private Camera cam;
-
-    private float dist; //For move in x y plane
-    private bool dragging;
-    private Vector3 offset;
 
     //to capture double tap
     private int tapCount = 0;
@@ -54,7 +47,6 @@ public class TouchController : MonoBehaviour
 
     private GameObject viewPopup;
 
-    private bool rotating = false;
 
     void OnEnable()
     {
@@ -87,28 +79,12 @@ public class TouchController : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 Touch touch = Input.GetTouch(0);
-                Ray ray = cam.ScreenPointToRay(touch.position);
-                RaycastHit hit;
-
                 
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        if(Physics.Raycast(ray, out hit)){
-                            GameObject hitObject = hit.transform.gameObject;
-                            if(hitObject.tag == "Object"){
-                                rotating = true;
-                            }
-                        }
                         startPos = touch.position;
                         timePressed = Time.time;
-                        break;
-                    case TouchPhase.Moved:
-                        //Rotation arround X Y axis
-                        //root.transform.RotateAround(rotationPoint.transform.position,new Vector3(touch.deltaPosition.y,-touch.deltaPosition.x,0f),2);
-                        if(rotating){
-                            root.transform.Rotate(-touch.deltaPosition.y,-touch.deltaPosition.x,0f, Space.Self);
-                        }
                         break;
                     case TouchPhase.Ended:
                         endPos = touch.position;
@@ -136,7 +112,6 @@ public class TouchController : MonoBehaviour
                             //Select touched object
                             SelectObject(touch);
                         }
-                        rotating = false;
                         break;
                 }
                 
@@ -154,7 +129,7 @@ public class TouchController : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             GameObject hitObject = hit.transform.gameObject;
-            //Debug.Log(hitObject.name);
+
             if (multiSelectStore.findObject(hitObject))
             {
                 //if touch already selected object un select it
@@ -214,7 +189,6 @@ public class TouchController : MonoBehaviour
                     }
                 }
             }
-            //Debug.Log(multiSelectStore.getSelectedObjects().Count);
 
         }
         else

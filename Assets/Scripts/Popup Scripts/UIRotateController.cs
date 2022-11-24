@@ -28,20 +28,40 @@ public class UIRotateController
         }
     }
 
-    public void Rotate(Transform t){
+    public void Rotate(Transform root, Transform t){
         string prefName = t.gameObject.name + "DefaultZ";
         float defaultZ = PlayerPrefs.GetInt(prefName, 0); 
-        if(t.position.x < leftX){
+        if(root.position.x < leftX){
             t.rotation = Quaternion.Euler(0,0,defaultZ-90);
-        }else if(t.position.x > rightX){
+        }else if(root.position.x > rightX){
             t.rotation = Quaternion.Euler(0,0,defaultZ+90);
         }else{
-            if(t.position.y > upperY){
+            if(root.position.y > upperY){
                 t.rotation = Quaternion.Euler(0,0,defaultZ+180);
-            }else if(t.position.y < lowerY){
+            }else if(root.position.y < lowerY){
                 t.rotation = Quaternion.Euler(0,0,defaultZ);
             }else{
-                t.rotation = Quaternion.Euler(0,0,defaultZ);
+                //t.rotation = Quaternion.Euler(0,0,defaultZ);
+            }
+        }
+        if(t.gameObject.name == "RM Background")
+        {
+            Transform elements = t.Find("Elements");
+            foreach (Transform child in elements){
+                Transform text = child.Find("Button/Text");
+                if(root.position.x < leftX){
+                    text.rotation = Quaternion.Euler(0,0,defaultZ-90);
+                }else if(root.position.x > rightX){
+                    text.rotation = Quaternion.Euler(0,0,defaultZ+90);
+                }else{
+                    if(root.position.y > upperY){
+                        text.rotation = Quaternion.Euler(0,0,defaultZ+180);
+                    }else if(root.position.y < lowerY){
+                        text.rotation = Quaternion.Euler(0,0,defaultZ);
+                    }else{
+                        //text.rotation = Quaternion.Euler(0,0,defaultZ);
+                    }
+                }
             }
         }
         
